@@ -18,42 +18,77 @@ con= mysql.connector.connect(
 cursor = con.cursor()
 
 def self_join():
+    """
+    Description: Perform a self join on the EMPLOYEES table.    
+    Parameters: None    
+    Returns: None
+    """
     cursor.execute("SELECT E1.EMAIL, E2.PHONE_NUMBER FROM EMPLOYEES E1 JOIN EMPLOYEES E2 ON E1.EMPLOYEE_ID = E2.EMPLOYEE_ID;")
     result=cursor.fetchall()
     for i in result:
         print(i)
     
 def inner_join():
+    """
+    Description: Perform an inner join between the EMPLOYEES and DEPARTMENTS tables.    
+    Parameters: None    
+    Returns: None
+    """
     cursor.execute("select department_name, count(*) as TotalEmployee from  employees e inner join departments d on e.department_id=d.department_id group by d.department_id, d.department_name order by department_name;")
     result=cursor.fetchall()
     for i in result:
         print(i)
 
 def left_join():
+    """
+    Description: Perform a left join on the EMPLOYEES table.    
+    Parameters: None    
+    Returns: None
+    """
     cursor.execute("select e1.first_name,e1.last_name ,e1.hire_date from employees e1 left join employees e2 on e1.hire_date > e2.hire_date where  e2.last_name='jones';")
     result=cursor.fetchall()
     for i in result:
         print(i)
 
 def right_join():
+    """
+    Description: Perform a right join on the EMPLOYEES table.    
+    Parameters: None    
+    Returns: None
+    """
     cursor.execute("select e1.employee_id, e1.last_name, e1.manager_id,e1.last_name from employees e1 right join employees e2 on e1.manager_id=e2.manager_id;")
     result=cursor.fetchall()
     for i in result:
         print(i)
 
 def cross_join():
+    """
+    Description: Perform a cross join between the EMPLOYEES and DEPARTMENTS tables.   
+    Parameters: None    
+    Returns: None
+    """
     cursor.execute("SELECT EMPLOYEES.FIRST_NAME, DEPARTMENTS.DEPARTMENT_NAME FROM EMPLOYEES CROSS JOIN DEPARTMENTS;")
     result=cursor.fetchall()
     for i in result:
         print(i)
     
 def outer_join():
+    """
+    Description: Perform an outer join  between the EMPLOYEES and DEPARTMENTS tables.
+    Parameters: None    
+    Returns: None
+    """
     cursor.execute("select department_name, count(*) as TotalEmployee from  employees e inner join departments d on e.department_id=d.department_id group by d.department_id, d.department_name order by department_name;")
     result=cursor.fetchall()
     for i in result:
         print(i)
 
 def main():
+    """
+    Description: Main function to execute various join operations based on user input
+    Parameters: None    
+    Returns: None
+    """
     try:
         db=int(input("\n1-Show tables 2-show table details  3-left join  4-right join  5-self join  6-cross join  7-outer join \n"))
         match db:
